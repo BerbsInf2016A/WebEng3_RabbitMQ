@@ -1,9 +1,9 @@
-package helloworld.producer;
+package working_queue.producer;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
-import helloworld.Configuration;
+import working_queue.Configuration;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,8 +30,7 @@ public class Main {
         }
 
         while(true) {
-            //abort = !askUserToSendAnotherMessage();
-            abort = false;
+            abort = !askUserToSendAnotherMessage();
             if (abort) break;
 
             try {
@@ -78,7 +77,7 @@ public class Main {
         String strDate = sdf.format(now);
 
         String message = "Hello World! " + strDate;
-        channel.basicPublish("", Configuration.instance.helloWorldQueueName, null, message.getBytes());
+        channel.basicPublish("", Configuration.instance.queueName, null, message.getBytes());
         System.out.println("Sent '" + message + "'");
     }
 
@@ -87,7 +86,7 @@ public class Main {
         factory.setHost("localhost");
         connection = factory.newConnection();
         channel = connection.createChannel();
-        channel.queueDeclare(Configuration.instance.helloWorldQueueName, false, false, false, null);
+        channel.queueDeclare(Configuration.instance.queueName, false, false, false, null);
         return channel;
     }
 }

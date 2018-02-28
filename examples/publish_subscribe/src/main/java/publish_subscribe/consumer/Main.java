@@ -1,4 +1,4 @@
-package helloworld.consumer;
+package publish_subscribe.consumer;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import helloworld.Configuration;
+import publish_subscribe.Configuration;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -37,7 +37,7 @@ public class Main {
                     System.out.println("Received '" + message + "'");
                 }
             };
-            channel.basicConsume(Configuration.instance.helloWorldQueueName, true, consumer);
+            channel.basicConsume(Configuration.instance.queueName, true, consumer);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
@@ -53,7 +53,7 @@ public class Main {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(Configuration.instance.helloWorldQueueName, false, false, false, null);
+        channel.queueDeclare(Configuration.instance.queueName, false, false, false, null);
         System.out.println("Waiting for messages. To exit press CTRL+C");
         return channel;
     }
