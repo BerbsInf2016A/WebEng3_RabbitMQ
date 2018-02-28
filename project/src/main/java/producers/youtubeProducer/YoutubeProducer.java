@@ -1,5 +1,7 @@
 package producers.youtubeProducer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import producers.BaseProducer;
 import producers.Configuration;
 import producers.weatherProducer.WeatherData;
@@ -14,8 +16,9 @@ public class YoutubeProducer extends BaseProducer {
     }
 
     public void sendMessage(YoutubeData payload) throws IOException {
-        String YoutubeDataJson = "";
-        this.sendChannel.basicPublish(Configuration.instance.exchangeName, payload.getYoutubeLink(), null, YoutubeDataJson.getBytes());
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(payload);
+        this.sendChannel.basicPublish(Configuration.instance.exchangeName, payload.getPlz(), null, json.getBytes());
     }
     public void close() throws IOException, TimeoutException {
         this.closeConnection();

@@ -1,9 +1,9 @@
 package producers.weatherProducer;
 
-public class WeatherData {
-    private static String PLZ = "97990";
+import producers.BaseDTO;
 
-    public static String getPLZ() {
-        return PLZ;
+public class WeatherData extends BaseDTO {
+    public WeatherData(String plz) {
+        super(plz, "weather");
     }
 }
