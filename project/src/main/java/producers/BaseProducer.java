@@ -17,12 +17,8 @@ public abstract class BaseProducer {
 
         this.connection = factory.newConnection();
         this.sendChannel = this.connection.createChannel();
-
         this.sendChannel.exchangeDeclare(Configuration.instance.exchangeName, "direct");
     }
-
-
-
 
     public void closeConnection() throws IOException, TimeoutException {
         this.sendChannel.close();
