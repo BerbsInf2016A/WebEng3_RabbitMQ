@@ -33,8 +33,9 @@ public class Main {
             abort = !askUserToSendAnotherMessage();
             if (abort) break;
 
+            String message = getNextMessage();
             try {
-                produceMessage(channel);
+                produceMessage(channel, message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,14 +72,17 @@ public class Main {
         return false;
     }
 
-    private static void produceMessage(Channel channel) throws IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date now = new Date();
-        String strDate = sdf.format(now);
-
-        String message = "Hello World! " + strDate;
+    private static void produceMessage(Channel channel, String message) throws IOException {
         channel.basicPublish("", Configuration.instance.queueName, null, message.getBytes());
         System.out.println("Sent '" + message + "'");
+    }
+
+    private static String getNextMessage(){
+        System.out.println("Please insert message:");
+
+        Scanner input = new Scanner(System.in);
+        String message = input.nextLine();
+        return (message.length() < 1)? "test...": message ;
     }
 
     private static Channel prepareChannel() throws IOException, TimeoutException {
