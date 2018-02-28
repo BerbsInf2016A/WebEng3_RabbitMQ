@@ -12,6 +12,7 @@ public abstract class BaseProducer {
     protected Channel sendChannel;
 
     public void prepareConnectionAndChannel() throws IOException, TimeoutException {
+        System.out.println("send message");
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(Configuration.instance.rabbitMQServer);
 
