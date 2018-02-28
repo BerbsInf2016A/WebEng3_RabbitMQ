@@ -1,4 +1,4 @@
-package helloworld.consumer;
+package working_queue.consumer;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -7,12 +7,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import helloworld.Configuration;
+import working_queue.Configuration;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 public class Main {

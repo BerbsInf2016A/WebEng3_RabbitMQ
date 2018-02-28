@@ -1,9 +1,9 @@
-package helloworld.producer;
+package publish_subscribe.producer;
 
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
-import helloworld.Configuration;
+import publish_subscribe.Configuration;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,7 +30,8 @@ public class Main {
         }
 
         while(true) {
-            abort = !askUserToSendAnotherMessage();
+            //abort = !askUserToSendAnotherMessage();
+            abort = false;
             if (abort) break;
 
             try {
