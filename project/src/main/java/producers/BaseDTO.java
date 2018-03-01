@@ -7,7 +7,7 @@ import java.util.Date;
 public abstract class BaseDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss z")
     private final Date creationDate;
-    private final String plz;
+    private final int plz;
 
     public String getTypeIdentifier() {
         return typeIdentifier;
@@ -15,12 +15,12 @@ public abstract class BaseDTO {
 
     private final String typeIdentifier;
 
-    public String getPlz() {
-        return plz;
+    public String getPlzString() {
+        return String.valueOf(plz);
     }
 
 
-    public BaseDTO(String plz, String typeIdentifier){
+    public BaseDTO(int plz, String typeIdentifier){
         this.creationDate = new Date();
         this.plz = plz;
         this.typeIdentifier = typeIdentifier;

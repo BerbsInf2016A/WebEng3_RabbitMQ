@@ -1,7 +1,10 @@
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
+import { configuration } from './configuration';
+
+
 export const stompConfig: StompConfig = {
     // Which server?
-    url: 'ws://127.0.0.1:15674/ws',
+    url: 'ws://' + configuration.rabbitMQServer + ':15674/ws',
   
     // Headers
     // Typical keys: login, passcode, host

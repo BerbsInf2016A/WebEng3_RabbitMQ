@@ -18,7 +18,7 @@ public class WeatherProducer extends BaseProducer{
     public void sendMessage(WeatherData payload) throws IOException {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(payload);
-        this.sendChannel.basicPublish(Configuration.instance.exchangeName, payload.getPlz(), null, json.getBytes());
+        this.sendChannel.basicPublish(Configuration.instance.sendExchangeName, payload.getPlzString(), null, json.getBytes());
     }
 
     public void close() throws IOException, TimeoutException {

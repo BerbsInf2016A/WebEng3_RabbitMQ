@@ -20,7 +20,7 @@ public class BaseClient {
         factory.setHost(Configuration.instance.rabbitMQServer);
         this.connection = factory.newConnection();
         this.recieveChannel = connection.createChannel();
-        this.recieveChannel.exchangeDeclare(Configuration.instance.exchangeName,"direct");
+        this.recieveChannel.exchangeDeclare(Configuration.instance.sendExchangeName,"direct");
     }
 
 }

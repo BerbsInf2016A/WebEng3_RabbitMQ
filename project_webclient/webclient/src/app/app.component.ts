@@ -3,6 +3,7 @@ import {StompService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
 import 'rxjs/Rx';
 import { PlzSubscribtion } from './plzSubscribtion';
+import { configuration } from './configuration';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,9 @@ import { PlzSubscribtion } from './plzSubscribtion';
 
 export class AppComponent {
 
+  notifyBackend(plz: String) {
+    this._stompService.publish('/exchange/' + configuration.sendExchangeName, plz.toString());
+  }
   title = 'app';
   subscriptions = [] as PlzSubscribtion[];
   messages = [] as String[];
@@ -27,7 +31,7 @@ export class AppComponent {
     if(exists.length > 0){
       return;
     }
-    let stom_observable = this._stompService.subscribe('/exchange/PLZExchange/' + plz);
+    let stom_observable = this._stompService.subscribe('/exchange/' + configuration.receiveExchangeName + '/' + plz);
 
     let subscribtion = stom_observable.map((message: Message) => {
       return message.body;
@@ -37,6 +41,8 @@ export class AppComponent {
     });
     this.subscriptions.push(new PlzSubscribtion(plz, subscribtion));
     this.currentPLZ = "";
+
+    this.notifyBackend(plz);
   }
 
   public unsubscribeFromPlz (plz: String) {

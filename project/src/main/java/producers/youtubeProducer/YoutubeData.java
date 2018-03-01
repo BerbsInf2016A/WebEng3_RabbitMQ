@@ -6,7 +6,7 @@ public class YoutubeData extends BaseDTO {
 
     private static String youtubeLink;
 
-    public YoutubeData(String plz) {
+    public YoutubeData(int plz) {
         super(plz, "youtube");
     }
 
