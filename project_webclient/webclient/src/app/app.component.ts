@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {StompService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
 import 'rxjs/Rx';
+import { PlzSubscribtion } from './plzSubscribtion';
 
 @Component({
   selector: 'app-root',
@@ -11,26 +12,31 @@ import 'rxjs/Rx';
 
 export class AppComponent {
 
-  constructor(private _stompService: StompService) {
-    let stomp_subscription = this._stompService.subscribe('/exchange/PLZExchange/74706');
+  title = 'app';
+  subscriptions = [] as PlzSubscribtion[];
 
-    stomp_subscription.map((message: Message) => {
-      return message.body;
-    }).subscribe((msg_body: string) => {
-      console.log(`Received: ${msg_body}`);
-    });
+  constructor(private _stompService: StompService) {
    }
   
-  title = 'app';
+  
 
-  public subsribeToPlz (plz: String) {
-    let stomp_subscription = this._stompService.subscribe('/exchange/PLZExchange/' + plz);
+  public subscribeToPlz (plz: String) {
+    let stom_observable = this._stompService.subscribe('/exchange/PLZExchange/' + plz);
 
-    stomp_subscription.map((message: Message) => {
+    let subscribtion = stom_observable.map((message: Message) => {
       return message.body;
     }).subscribe((msg_body: string) => {
       console.log(`Received: ${msg_body}`);
     });
+    this.subscriptions.push(new PlzSubscribtion(plz, subscribtion));
+  }
+
+  public unsubscribeFromPlz (plz: String) {
+    let subscribtion = this.subscriptions.find(x => x.plz == plz);
+    if (subscribtion != undefined) {
+      subscribtion.subscription.unsubscribe();
+      this.subscriptions = this.subscriptions.filter(t => t != subscribtion);
+    }
   }
 }
 
