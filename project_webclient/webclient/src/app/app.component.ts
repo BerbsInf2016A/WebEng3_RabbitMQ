@@ -14,6 +14,8 @@ export class AppComponent {
 
   title = 'app';
   subscriptions = [] as PlzSubscribtion[];
+  messages = [] as String[];
+  currentPLZ = "";
 
   constructor(private _stompService: StompService) {
    }
@@ -27,8 +29,10 @@ export class AppComponent {
       return message.body;
     }).subscribe((msg_body: string) => {
       console.log(`Received: ${msg_body}`);
+      this.messages.push(`Received: ${msg_body}`);
     });
     this.subscriptions.push(new PlzSubscribtion(plz, subscribtion));
+    this.currentPLZ = "";
   }
 
   public unsubscribeFromPlz (plz: String) {
