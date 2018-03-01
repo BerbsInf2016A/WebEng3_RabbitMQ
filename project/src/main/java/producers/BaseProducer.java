@@ -27,10 +27,10 @@ public abstract class BaseProducer {
 
         this.connection = factory.newConnection();
         this.sendChannel = this.connection.createChannel();
-        this.sendChannel.exchangeDeclare(Configuration.instance.sendExchangeName, "direct");
+        this.sendChannel.exchangeDeclare(Configuration.instance.sendExchangeName, "direct", true);
 
         this.receiveChannel = this.connection.createChannel();
-        this.receiveChannel.exchangeDeclare(Configuration.instance.receiveExchangeName, "fanout");
+        this.receiveChannel.exchangeDeclare(Configuration.instance.receiveExchangeName, "fanout", true);
         String queueName = this.receiveChannel.queueDeclare().getQueue();
         this.receiveChannel.queueBind(queueName, Configuration.instance.receiveExchangeName, "");
 
