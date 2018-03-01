@@ -23,6 +23,10 @@ export class AppComponent {
   
 
   public subscribeToPlz (plz: String) {
+    let exists = this.subscriptions.filter(t => t.plz == plz);
+    if(exists.length > 0){
+      return;
+    }
     let stom_observable = this._stompService.subscribe('/exchange/PLZExchange/' + plz);
 
     let subscribtion = stom_observable.map((message: Message) => {
@@ -41,7 +45,8 @@ export class AppComponent {
       subscribtion.subscription.unsubscribe();
       this.subscriptions = this.subscriptions.filter(t => t != subscribtion);
     }
-  }
+    this.currentPLZ = "";
+  }  
 }
 
 

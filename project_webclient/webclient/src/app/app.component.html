@@ -1,4 +1,14 @@
+<span>Enter the PLZ</span>
 <input type="number" [(ngModel)]="currentPLZ" (keyup.enter)="subscribeToPlz(currentPLZ);" />
+<br>
+<span>Remove subscribtion</span>
+<input type="number" [(ngModel)]="currentPLZ" (keyup.enter)="unsubscribeFromPlz(currentPLZ);" />
+<br>
+<span>Subscribed to:</span>
+<br>
+<div *ngFor="let sub of subscriptions;">
+  {{sub.plz}} <br>
+</div>
 <div *ngFor="let message of messages;">
   {{message}} <br>
 </div>
