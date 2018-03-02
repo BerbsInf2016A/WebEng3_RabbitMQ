@@ -9,6 +9,12 @@ public abstract class BaseDTO {
     private final Date creationDate;
     private final int plz;
 
+    public String getLocationName() {
+        return locationName;
+    }
+
+    private String locationName;
+
     public String getTypeIdentifier() {
         return typeIdentifier;
     }
@@ -20,7 +26,8 @@ public abstract class BaseDTO {
     }
 
 
-    public BaseDTO(int plz, String typeIdentifier){
+    public BaseDTO(int plz, String typeIdentifier, String locationName){
+        this.locationName = locationName;
         this.creationDate = new Date();
         this.plz = plz;
         this.typeIdentifier = typeIdentifier;

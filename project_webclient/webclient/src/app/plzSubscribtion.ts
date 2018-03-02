@@ -3,8 +3,8 @@ import { Subscription } from "rxjs";
 export class PlzSubscribtion {
 
     subscription: Subscription;
-    plz: String;
-    constructor(PLZ : String, subscribtion : Subscription) {
+    plz: number;
+    constructor(PLZ : number, subscribtion : Subscription) {
         this.plz = PLZ;
         this.subscription = subscribtion;
     }

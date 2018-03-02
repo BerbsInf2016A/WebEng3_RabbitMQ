@@ -1,14 +1,51 @@
-<span>Enter the PLZ</span>
-<input type="number" [(ngModel)]="currentPLZ" (keyup.enter)="subscribeToPlz(currentPLZ);" />
-<br>
-<span>Remove subscribtion</span>
-<input type="number" [(ngModel)]="currentPLZ" (keyup.enter)="unsubscribeFromPlz(currentPLZ);" />
-<br>
-<span>Subscribed to:</span>
-<br>
-<div *ngFor="let sub of subscriptions;">
-  {{sub.plz}} <br>
-</div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-4">
+          <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Enter PLZ to subscribe</span>
+              </div>
+              <input type="number" class="form-control" [(ngModel)]="subscribePLZ" (keyup.enter)="subscribeToPlz(subscribePLZ);" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+      </div>
+      <div class="col-8">
+            <ul class="list-inline">
+              <li *ngFor="let sub of subscriptions;" class="list-inline-item">{{sub.plz}}</li>
+            </ul> 
+      </div>
+  </div>
+  <div class="row">
+    <div class="col">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Enter PLZ to unsubscribe</span>
+            </div>
+            <input type="number" class="form-control" [(ngModel)]="unsubscribePLZ" (keyup.enter)="unsubscribeFromPlz(unsubscribePLZ);" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+          </div>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+      <div *ngFor="let weather of weatherData;" class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{weather.locationName}}</h5>
+            <p class="card-text">Es hat momentan {{weather.temperature}}° Celsius in {{weather.locationName}}</p>
+          </div>
+        </div>
+  </div>
+  <div class="row">
+      <div *ngFor="let youtube of youtubeData;" class="card" style="width: 18rem;">
+          <img class="card-img-top" src={{youtube.imageLink}} alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{youtube.locationName}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{youtube.videoTitle}}</h6>
+            <a href={{youtube.videoLink}} class="card-link" target="_blank">Video anschauen</a>
+          </div>
+        </div>
+  </div>
+
 <div *ngFor="let message of messages;">
   {{message}} <br>
 </div>

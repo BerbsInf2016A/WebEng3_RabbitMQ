@@ -4,14 +4,28 @@ import producers.BaseDTO;
 
 public class YoutubeData extends BaseDTO {
 
-    private static String youtubeLink;
 
-    public YoutubeData(int plz) {
-        super(plz, "youtube");
+    private final String videoTitle;
+    private final String videoLink;
+    private final String imageLink;
+
+    public YoutubeData(int plz, String locationName, String videoTitle, String videoLink, String imageLink)
+    {
+        super(plz, "youtube", locationName);
+        this.videoTitle = videoTitle;
+        this.videoLink = videoLink;
+        this.imageLink = imageLink;
     }
 
+    public String getVideoTitle() {
+        return videoTitle;
+    }
 
-    public String getYoutubeLink() {
-        return youtubeLink;
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public String getImageLink() {
+        return imageLink;
     }
 }
