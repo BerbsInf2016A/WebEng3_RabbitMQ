@@ -6,6 +6,8 @@ import producers.BaseProducer;
 import producers.Configuration;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -29,7 +31,7 @@ public class YoutubeProducer extends BaseProducer {
      * @param payload The payload to send.
      * @throws IOException The RabbitMQ client can throw this is exception.
      */
-    public void sendMessage(YoutubeDataDto payload) throws IOException {
+    private void sendMessage(YoutubeDataDto payload) throws IOException {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(payload);
         this.sendChannel.basicPublish(Configuration.instance.sendExchangeName, payload.getPlzString(), null, json.getBytes());
@@ -43,5 +45,19 @@ public class YoutubeProducer extends BaseProducer {
      */
     public void close() throws IOException, TimeoutException {
         this.closeConnection();
+    }
+
+    /**
+     * Request and publish the youtube data.
+     *
+     * @param plzNameMapping The plz and name to query data for.
+     * @throws IOException Youtube client can throw this exception.
+     */
+    public void requestAndPublishYoutubeData(Map.Entry<Integer, String> plzNameMapping) throws IOException {
+        YoutubeRequest request = new YoutubeRequest();
+        List<YoutubeDataDto> results = request.request(plzNameMapping.getValue(), Configuration.instance.numberOfRequestedVideos, plzNameMapping.getKey());
+        for (YoutubeDataDto dto : results) {
+            this.sendMessage(dto);
+        }
     }
 }

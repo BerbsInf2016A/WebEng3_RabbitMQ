@@ -40,8 +40,8 @@
     <div *ngFor="let youtube of youtubeData;" class="card" style="width: 18rem;">
       <img class="card-img-top" src={{youtube.imageLink}} alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{youtube.locationName}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{youtube.videoTitle}}</h6>
+        <h5 class="card-title">{{youtube.videoTitle}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{youtube.locationName}}</h6>
         <a href={{youtube.videoLink}} class="card-link" target="_blank">Video anschauen</a>
       </div>
     </div>
