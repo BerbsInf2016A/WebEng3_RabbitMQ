@@ -4,14 +4,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
+/**
+ * A base class for requests.
+ */
 public abstract class BaseRequest {
 
-    protected String executeRequest(URL url, String method) throws IOException {
+    /**
+     * Execute the get request.
+     *
+     * @param url URL to query.
+     * @return The response as a string. Null if failed.
+     * @throws IOException
+     */
+    protected String executeGetRequest(URL url) throws IOException {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod(method);
+        con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", Configuration.instance.userAgent);
 
         int responseCode = con.getResponseCode();
@@ -29,5 +38,4 @@ public abstract class BaseRequest {
         in.close();
         return response.toString();
     }
-
 }

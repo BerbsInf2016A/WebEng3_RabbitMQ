@@ -7,15 +7,24 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * A request to resolve a location name for a plz.
+ */
 public class LocationNameRequest extends BaseRequest {
 
-    public String queryLocationName(int plz) {
+    /**
+     * Request the location name for a plz.
+     *
+     * @param plz The plz to request the location name for.
+     * @return The name for the location.
+     */
+    public String requestLocationName(int plz) {
         String locationName = null;
         String adr = Configuration.instance.locationResolvingApiUrlPattern.replace("{plz}", String.valueOf(plz));
         URL url = null;
         try {
             url = new URL(adr);
-            String response = this.executeRequest(url, "GET");
+            String response = this.executeGetRequest(url);
 
             JSONArray places = new JSONObject(response.toString()).getJSONArray("places");
             for (int i = 0; i < places.length(); i++) {

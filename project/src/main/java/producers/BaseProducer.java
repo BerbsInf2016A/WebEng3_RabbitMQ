@@ -7,15 +7,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
@@ -94,6 +87,7 @@ public abstract class BaseProducer {
 
     /**
      * Insert a plz to the collection if it is not already a part of the inner collection.
+     *
      * @param plzString The plz.
      */
     private void upsertPLZ(String plzString) {
@@ -101,7 +95,7 @@ public abstract class BaseProducer {
             int plz = Integer.parseInt(plzString);
             if (!this.plzMap.containsKey(plz)) {
                 LocationNameRequest request = new LocationNameRequest();
-                String locationName = request.queryLocationName(plz);
+                String locationName = request.requestLocationName(plz);
                 if (locationName != null) {
                     System.out.println("Adding " + plz + " " + locationName + " to the source list.");
                     this.plzMap.put(plz, locationName);

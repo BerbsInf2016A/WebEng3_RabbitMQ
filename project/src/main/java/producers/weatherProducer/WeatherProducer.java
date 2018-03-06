@@ -6,7 +6,6 @@ import producers.BaseProducer;
 import producers.Configuration;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
@@ -48,9 +47,15 @@ public class WeatherProducer extends BaseProducer {
         this.closeConnection();
     }
 
+    /**
+     * Request the weather data from the api and publish the received data to the clients.
+     *
+     * @param plzNameMapping Mapping for the plz and location. Key = plz and value = locationName.
+     * @throws IOException Requesting and sending data can throw an IOException.
+     */
     public void requestAndPublishWeatherData(Map.Entry<Integer, String> plzNameMapping) throws IOException {
         WeatherDataRequest request = new WeatherDataRequest();
-        WeatherDataDto result = request.request(plzNameMapping.getKey(), plzNameMapping.getValue());
+        WeatherDataDto result = request.execute(plzNameMapping.getKey(), plzNameMapping.getValue());
         if (result != null)
             this.sendMessage(result);
     }

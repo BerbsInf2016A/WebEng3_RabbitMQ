@@ -22,9 +22,9 @@ public class YoutubeRequest {
     /**
      * Request youtube data.
      *
-     * @param keyword The keyword to search for.
+     * @param keyword         The keyword to search for.
      * @param numberOfResults Limit the number or retrieved results.
-     * @param plz The plz to generate the dtos for.
+     * @param plz             The plz to generate the dtos for.
      * @return A list of YoutubeDataDto.
      */
     public List<YoutubeDataDto> request(String keyword, long numberOfResults, int plz) {
@@ -87,8 +87,8 @@ public class YoutubeRequest {
     /**
      * Generate a YoutubeDataDto for the given source data.
      *
-     * @param source The search result als source element.
-     * @param plz The plz to create the dto for.
+     * @param source  The search result als source element.
+     * @param plz     The plz to create the dto for.
      * @param keyword The keyword or location name for the dto.
      * @return The created dto.
      */

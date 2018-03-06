@@ -2,6 +2,9 @@ package producers.youtubeProducer;
 
 import producers.BaseDTO;
 
+/**
+ * A youtube data dto.
+ */
 public class YoutubeDataDto extends BaseDTO {
 
     /**

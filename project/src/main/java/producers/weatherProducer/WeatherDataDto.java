@@ -10,17 +10,23 @@ public class WeatherDataDto extends BaseDTO {
      * The temperature.
      */
     private final double temperature;
+    /**
+     * The minimum temperature.
+     */
     private final double minTemperature;
+    /**
+     * The maximum temperature.
+     */
     private final double maxTemperature;
 
     /**
      * Constructor for the WeatherDto class.
      *
-     * @param plz The "Postleitzahl" or zip code of the dto.
-     * @param temperature The temperature.
+     * @param plz            The "Postleitzahl" or zip code of the dto.
+     * @param temperature    The temperature.
      * @param minTemperature The minimum temperature.
      * @param maxTemperature The maximum temperature.
-     * @param locationName The name of the location this dto is for.
+     * @param locationName   The name of the location this dto is for.
      */
     public WeatherDataDto(int plz, double temperature, double minTemperature, double maxTemperature, String locationName) {
         super(plz, "weather", locationName);
