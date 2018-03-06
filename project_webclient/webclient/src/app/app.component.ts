@@ -26,8 +26,6 @@ export class AppComponent {
    * The subscribtions for RabbitMQ.
    */
   subscriptions = [] as PlzSubscribtion[];
-  // TODO: Messages is only for debugging and should be removed!
-  messages = [] as String[];
   /**
    * The field containing a new plz to subsribe to.
    */
@@ -65,12 +63,11 @@ export class AppComponent {
 
   /**
    * Handle messages received from the RabbitMQ exchange.
-   * 
+   *
    * @param msg_body The body of the message.
    */
   handleReceivedMessage(msg_body: String) {
     console.log(`Received: ${msg_body}`);
-    this.messages.push(`Received: ${msg_body}`);
 
     // Handle a weather data package.
     if (msg_body.indexOf('"typeIdentifier" : "weather"') >= 0) {
