@@ -100,7 +100,8 @@ public abstract class BaseProducer {
         if (Pattern.matches("\\d{5}", plzString)) {
             int plz = Integer.parseInt(plzString);
             if (!this.plzMap.containsKey(plz)) {
-                String locationName = this.queryLocationName(plz);
+                LocationNameRequest request = new LocationNameRequest();
+                String locationName = request.queryLocationName(plz);
                 if (locationName != null) {
                     System.out.println("Adding " + plz + " " + locationName + " to the source list.");
                     this.plzMap.put(plz, locationName);
@@ -114,59 +115,6 @@ public abstract class BaseProducer {
 
     }
 
-    /**
-     * Resolve the location name for a plz.
-     *
-     * @param plz The "Postleitzahl" or zip code.
-     * @return The name for the location if it could be resolved. Null if not.
-     */
-    private String queryLocationName(int plz) {
-        String adr = Configuration.instance.locationResolvingApiUrlPattern.replace("{plz}", String.valueOf(plz));
-        URL url = null;
-        try {
-            url = new URL(adr);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("User-Agent", Configuration.instance.userAgent);
-
-            int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'GET' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            String locationName = null;
-            JSONArray places = new JSONObject(response.toString()).getJSONArray("places");
-            for (int i = 0; i < places.length(); i++) {
-                JSONObject entry = places.getJSONObject(i);
-                String keyValue = entry.getString("place name");
-                if (keyValue != null && keyValue.length() > 1) {
-                    locationName = keyValue;
-                    break;
-                }
-            }
-
-            if (locationName != null && locationName.length() > 0) {
-                return locationName;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return null;
-    }
 
     /**
      * Close all connections and channels.

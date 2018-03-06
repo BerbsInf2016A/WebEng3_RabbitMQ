@@ -6,6 +6,8 @@ import producers.BaseProducer;
 import producers.Configuration;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -44,5 +46,12 @@ public class WeatherProducer extends BaseProducer {
      */
     public void close() throws IOException, TimeoutException {
         this.closeConnection();
+    }
+
+    public void requestAndPublishWeatherData(Map.Entry<Integer, String> plzNameMapping) throws IOException {
+        WeatherDataRequest request = new WeatherDataRequest();
+        WeatherDataDto result = request.request(plzNameMapping.getKey(), plzNameMapping.getValue());
+        if (result != null)
+            this.sendMessage(result);
     }
 }

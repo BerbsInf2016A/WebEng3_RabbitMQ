@@ -36,12 +36,22 @@ public enum Configuration {
     /**
      * The api key which is used to query youtube data.
      */
-    public String youtubeApiKey = "ENTER YOUR API KEY HERE";
+    public String youtubeApiKey = "AIzaSyDL2MRilhurwRvBswaEKL8U7Npc17aOqmY";
 
     /**
      * Prefix to generate the url to the youtube videos.
      */
     public String youtubeVideoURLPrefix = "https://www.youtube.com/watch?v=";
+
+    /**
+     * The api key which is used to query the weather data.
+     */
+    public String openWeatherApiKey = "531eb81b29ccaa399232311c25b9b479";
+
+    /**
+     * Pattern to generate the url to request the weather data.
+     */
+    public String openWeatherDataURLPattern = "http://api.openweathermap.org/data/2.5/weather?zip={plz},de&appid={apikey}&units=metric";
 
     /**
      * The number of requested videos per PLZ.

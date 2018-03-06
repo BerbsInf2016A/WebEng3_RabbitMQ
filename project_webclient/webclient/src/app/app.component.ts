@@ -75,7 +75,8 @@ export class AppComponent {
     // Handle a weather data package.
     if (msg_body.indexOf('"typeIdentifier" : "weather"') >= 0) {
       const obj = JSON.parse(msg_body.toString());
-      const weatherData = new WeatherData(obj.plzString, obj.creationDate, obj.locationName, obj.temperature);
+      const weatherData = new WeatherData(obj.plzString, obj.creationDate, obj.locationName, obj.temperature,
+            obj.minTemperature, obj.maxTemperature);
       // Remove old entry to avoid duplicates.
       this.weatherData = this.weatherData.filter(t => t.plz !== weatherData.plz);
       this.weatherData.push(weatherData);
