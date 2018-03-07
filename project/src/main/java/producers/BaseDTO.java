@@ -18,7 +18,7 @@ public abstract class BaseDTO {
     /**
      * The "Postleitzahl" or zip code of the dto.
      */
-    private final int plz;
+    private final String plz;
     /**
      * A identifier for the content of this dto.
      */
@@ -35,7 +35,7 @@ public abstract class BaseDTO {
      * @param typeIdentifier The typeIdentifier for this dto.
      * @param locationName   The name of the location this dto is for.
      */
-    public BaseDTO(int plz, String typeIdentifier, String locationName) {
+    public BaseDTO(String plz, String typeIdentifier, String locationName) {
         this.locationName = locationName;
         this.creationDate = new Date();
         this.plz = plz;

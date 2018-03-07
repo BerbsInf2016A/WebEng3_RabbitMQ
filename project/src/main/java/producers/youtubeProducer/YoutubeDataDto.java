@@ -31,7 +31,7 @@ public class YoutubeDataDto extends BaseDTO {
      * @param videoLink    The link to the video.
      * @param imageLink    The link to the previewImage.
      */
-    public YoutubeDataDto(int plz, String locationName, String videoTitle, String videoLink, String imageLink) {
+    public YoutubeDataDto(String plz, String locationName, String videoTitle, String videoLink, String imageLink) {
         super(plz, "youtube", locationName);
         this.videoTitle = videoTitle;
         this.videoLink = videoLink;

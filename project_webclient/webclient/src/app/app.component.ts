@@ -21,7 +21,7 @@ export class AppComponent {
   /**
    * The title of the app.
    */npm
-  title = 'RabiitMQ Example';
+  title = 'RabbitMQ Example';
   /**
    * The subscribtions for RabbitMQ.
    */
@@ -56,9 +56,9 @@ export class AppComponent {
    * "Postleitzahl" or zip code.
    * @param plz The "Postleitzahl" or zip code.
    */
-  notifyProducers(plz: number) {
+  notifyProducers(plz: string) {
     // Publish the message to the exchange.
-    this._stompService.publish('/exchange/' + Configuration.sendExchangeName, plz.toString());
+    this._stompService.publish('/exchange/' + Configuration.sendExchangeName, plz);
   }
 
   /**
@@ -97,15 +97,20 @@ export class AppComponent {
    * @param plz The "Postleitzahl" or zip code to subscribe to.
    */
   public subscribeToPlz (plz: number) {
+    // Check if the number has five digits
+    if(plz < 1000 || plz > 99999 ) {
+      return;
+    }
+    const adjustedPLZ = plz < 10000 ? "0" + String(plz) : String(plz);
     // Check if we are already subscribed.
-    const exists = this.subscriptions.filter(t => t.plz === plz);
+    const exists = this.subscriptions.filter(t => t.plz === adjustedPLZ);
     if (exists.length > 0) {
       this.subscribePLZ = '';
       return;
     }
 
     // Subscribe to the observable.
-    const stom_observable = this._stompService.subscribe('/exchange/' + Configuration.receiveExchangeName + '/' + plz);
+    const stom_observable = this._stompService.subscribe('/exchange/' + Configuration.receiveExchangeName + '/' + adjustedPLZ);
 
     // Subscribe to the messages and save the subscribtion.
     const subscribtion = stom_observable.map((message: Message) => {
@@ -113,11 +118,11 @@ export class AppComponent {
     }).subscribe((msg_body: string) => {
       this.handleReceivedMessage(msg_body);
     });
-    this.subscriptions.push(new PlzSubscribtion(+plz, subscribtion));
+    this.subscriptions.push(new PlzSubscribtion(adjustedPLZ, subscribtion));
     this.subscribePLZ = '';
 
     // Notify the producers, that we are interested in data for this plz.
-    this.notifyProducers(plz);
+    this.notifyProducers(adjustedPLZ);
   }
 
   /**
@@ -126,16 +131,21 @@ export class AppComponent {
    * @param plz The "Postleitzahl" or zip code to unsubscribe from.
    */
   public unsubscribeFromPlz (plz: number) {
+    // Check if the number has five digits
+    if(plz < 1000 || plz > 99999 ) {
+      this.unsubscribePLZ = '';
+      return;
+    }
+    const adjustedPLZ = plz < 10000 ? "0" + String(plz) : String(plz);
     // Remove subscribtion
-    const subscribtion = this.subscriptions.find(x => x.plz === plz);
+    const subscribtion = this.subscriptions.find(x => x.plz === adjustedPLZ);
     if (subscribtion !== undefined) {
       subscribtion.subscription.unsubscribe();
       this.subscriptions = this.subscriptions.filter(t => t !== subscribtion);
     }
-
     // Remove already received data
-    this.weatherData = this.weatherData.filter(t => t.plz.toString() !== plz.toString());
-    this.youtubeData = this.youtubeData.filter(t => t.plz.toString() !== plz.toString());
+    this.weatherData = this.weatherData.filter(t => t.plz !== adjustedPLZ);
+    this.youtubeData = this.youtubeData.filter(t => t.plz !== adjustedPLZ);
 
     this.unsubscribePLZ = '';
   }

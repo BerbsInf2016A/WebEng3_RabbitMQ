@@ -28,7 +28,7 @@ public class WeatherDataDto extends BaseDTO {
      * @param maxTemperature The maximum temperature.
      * @param locationName   The name of the location this dto is for.
      */
-    public WeatherDataDto(int plz, double temperature, double minTemperature, double maxTemperature, String locationName) {
+    public WeatherDataDto(String plz, double temperature, double minTemperature, double maxTemperature, String locationName) {
         super(plz, "weather", locationName);
         this.temperature = temperature;
         this.minTemperature = minTemperature;

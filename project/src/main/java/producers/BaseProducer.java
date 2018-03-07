@@ -32,7 +32,7 @@ public abstract class BaseProducer {
     /**
      * A map of PLZs ("Postleitzahlen" or zip codes) and their location name.
      */
-    HashMap<Integer, String> plzMap;
+    HashMap<String, String> plzMap;
 
     /**
      * Constructor for the BaseProducer class.
@@ -46,7 +46,7 @@ public abstract class BaseProducer {
      *
      * @return A set of integers, representing the zip codes.
      */
-    public HashMap<Integer, String> getPlzMap() {
+    public HashMap<String, String> getPlzMap() {
         return plzMap;
     }
 
@@ -91,16 +91,17 @@ public abstract class BaseProducer {
      * @param plzString The plz.
      */
     private void upsertPLZ(String plzString) {
+        if (Pattern.matches("\\d{4}", plzString))
+                plzString = "0" + plzString;
         if (Pattern.matches("\\d{5}", plzString)) {
-            int plz = Integer.parseInt(plzString);
-            if (!this.plzMap.containsKey(plz)) {
+            if (!this.plzMap.containsKey(plzString)) {
                 LocationNameRequest request = new LocationNameRequest();
-                String locationName = request.requestLocationName(plz);
+                String locationName = request.requestLocationName(plzString);
                 if (locationName != null) {
-                    System.out.println("Adding " + plz + " " + locationName + " to the source list.");
-                    this.plzMap.put(plz, locationName);
+                    System.out.println("Adding " + plzString + " " + locationName + " to the source list.");
+                    this.plzMap.put(plzString, locationName);
                 } else {
-                    System.out.print("Could not resolve location name for " + plz + ".");
+                    System.out.print("Could not resolve location name for " + plzString + ".");
                 }
             }
         } else {

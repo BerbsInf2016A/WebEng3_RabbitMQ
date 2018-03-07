@@ -27,7 +27,7 @@ public class YoutubeRequest {
      * @param plz             The plz to generate the dtos for.
      * @return A list of YoutubeDataDto.
      */
-    public List<YoutubeDataDto> request(String keyword, long numberOfResults, int plz) {
+    public List<YoutubeDataDto> request(String keyword, long numberOfResults, String plz) {
         List<YoutubeDataDto> results = new ArrayList<>();
 
         try {
@@ -92,7 +92,7 @@ public class YoutubeRequest {
      * @param keyword The keyword or location name for the dto.
      * @return The created dto.
      */
-    private YoutubeDataDto generateDto(SearchResult source, int plz, String keyword) {
+    private YoutubeDataDto generateDto(SearchResult source, String plz, String keyword) {
         ResourceId id = source.getId();
         String videoTitle = source.getSnippet().getTitle();
         String videoLink = Configuration.instance.youtubeVideoURLPrefix + id.getVideoId();

@@ -16,6 +16,11 @@ import java.util.concurrent.TimeoutException;
 public class YoutubeProducer extends BaseProducer {
 
     /**
+     * The YouTube Request.
+     */
+    private YoutubeRequest youTubeRequest;
+
+    /**
      * Constructor for the YoutubeProducer class.
      *
      * @throws IOException      The RabbitMQ client can throw this is exception.
@@ -53,9 +58,10 @@ public class YoutubeProducer extends BaseProducer {
      * @param plzNameMapping The plz and name to query data for.
      * @throws IOException Youtube client can throw this exception.
      */
-    public void requestAndPublishYoutubeData(Map.Entry<Integer, String> plzNameMapping) throws IOException {
-        YoutubeRequest request = new YoutubeRequest();
-        List<YoutubeDataDto> results = request.request(plzNameMapping.getValue(), Configuration.instance.numberOfRequestedVideos, plzNameMapping.getKey());
+    public void requestAndPublishYoutubeData(Map.Entry<String, String> plzNameMapping) throws IOException {
+        if (this.youTubeRequest == null)
+            this.youTubeRequest = new YoutubeRequest();
+        List<YoutubeDataDto> results = this.youTubeRequest.request(plzNameMapping.getValue(), Configuration.instance.numberOfRequestedVideos, plzNameMapping.getKey());
         for (YoutubeDataDto dto : results) {
             this.sendMessage(dto);
         }

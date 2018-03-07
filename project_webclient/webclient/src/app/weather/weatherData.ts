@@ -26,7 +26,7 @@ export class WeatherData {
     /**
      * The "Postleitzahl" or zip code for this data.
      */
-    plz: number;
+    plz: String;
 
     /**
      * Constructor for the weather data class.
@@ -38,7 +38,7 @@ export class WeatherData {
      * @param minTemperature The minimum temperature.
      * @param maxTemperature The maximum temperature.
      */
-    constructor(plz: number, creationDate: String, locationName: String, temperature: number,
+    constructor(plz: String, creationDate: String, locationName: String, temperature: number,
             minTemperature: number, maxTemperature: number ) {
         this.plz = plz;
         this.creationDate = creationDate;

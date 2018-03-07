@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 /**
  * A request to resolve a location name for a plz.
@@ -18,9 +19,9 @@ public class LocationNameRequest extends BaseRequest {
      * @param plz The plz to request the location name for.
      * @return The name for the location.
      */
-    public String requestLocationName(int plz) {
+    public String requestLocationName(String plz) {
         String locationName = null;
-        String adr = Configuration.instance.locationResolvingApiUrlPattern.replace("{plz}", String.valueOf(plz));
+        String adr = Configuration.instance.locationResolvingApiUrlPattern.replace("{plz}", plz);
         URL url = null;
         try {
             url = new URL(adr);

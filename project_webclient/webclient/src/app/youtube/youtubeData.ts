@@ -23,7 +23,7 @@ export class YoutubeData {
     /**
      * The "Postleitzahl" or zip code for this data.
      */
-    plz: number;
+    plz: String;
 
     /**
      * Constructor for the youtube data class.
@@ -35,7 +35,7 @@ export class YoutubeData {
      * @param imageLink The link to the preview image.
      * @param videoTitle The title of the video.
      */
-    constructor(plz: number, creationDate: String, locationName: String, videoLink: String, imageLink: String, videoTitle: String ){
+    constructor(plz: String, creationDate: String, locationName: String, videoLink: String, imageLink: String, videoTitle: String ){
         this.plz = plz;
         this.creationDate = creationDate;
         this.locationName = locationName;

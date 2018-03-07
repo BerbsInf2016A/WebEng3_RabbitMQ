@@ -12,7 +12,7 @@ export class PlzSubscribtion {
     /**
      * The "Postleitzahl" or zip code the subsribtion is for.
      */
-    plz: number;
+    plz: String;
 
     /**
      * Constructor for the PLZSubscribtion.
@@ -20,7 +20,7 @@ export class PlzSubscribtion {
      * @param PLZ The "Postleitzahl" or zip code the subsribtion is for.
      * @param subscribtion The subscribtion.
      */
-    constructor(plz: number, subscribtion: Subscription) {
+    constructor(plz: String, subscribtion: Subscription) {
         this.plz = plz;
         this.subscription = subscribtion;
     }

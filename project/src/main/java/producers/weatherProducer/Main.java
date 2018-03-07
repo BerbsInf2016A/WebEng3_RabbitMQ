@@ -11,11 +11,16 @@ public class Main {
         System.out.println("Weather-Producer started");
         WeatherProducer producer = new WeatherProducer();
         while (true) {
-            System.out.println("Weather-Producer: Request and publish for " + producer.getPlzMap().size() + " PLZs.");
-            for (Map.Entry<Integer, String> mapping : producer.getPlzMap().entrySet()) {
-                producer.requestAndPublishWeatherData(mapping);
+            try {
+                System.out.println("Weather-Producer: Request and publish for " + producer.getPlzMap().size() + " PLZs.");
+                for (Map.Entry<String, String> mapping : producer.getPlzMap().entrySet()) {
+                    producer.requestAndPublishWeatherData(mapping);
+                }
+                Thread.sleep(Configuration.instance.sendingIntervalInMs);
+            } catch (Exception e) {
+                //Catch only Exceptions to prevent Shutdown of producer.
+                e.printStackTrace();
             }
-            Thread.sleep(Configuration.instance.sendingIntervalInMs);
         }
     }
 }

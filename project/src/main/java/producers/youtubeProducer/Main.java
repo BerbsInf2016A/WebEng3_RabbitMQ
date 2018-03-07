@@ -11,11 +11,16 @@ public class Main {
         System.out.println("Youtube-Producer started");
         YoutubeProducer producer = new YoutubeProducer();
         while (true) {
-            System.out.println("Youtube-Producer: Request and publish for " + producer.getPlzMap().size() + " PLZs.");
-            for (Map.Entry<Integer, String> mapping : producer.getPlzMap().entrySet()) {
-                producer.requestAndPublishYoutubeData(mapping);
+            try {
+                System.out.println("Youtube-Producer: Request and publish for " + producer.getPlzMap().size() + " PLZs.");
+                for (Map.Entry<String, String> mapping : producer.getPlzMap().entrySet()) {
+                    producer.requestAndPublishYoutubeData(mapping);
+                }
+                Thread.sleep(Configuration.instance.sendingIntervalInMs);
+            } catch (Exception e) {
+                //Catch only Exceptions to prevent Shutdown of producer.
+                e.printStackTrace();
             }
-            Thread.sleep(Configuration.instance.sendingIntervalInMs);
         }
     }
 }

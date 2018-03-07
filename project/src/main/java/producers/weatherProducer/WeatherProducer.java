@@ -8,11 +8,16 @@ import producers.Configuration;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Pattern;
 
 /**
  * A producer for weather data.
  */
 public class WeatherProducer extends BaseProducer {
+    /**
+     * The weather data request.
+     */
+    private WeatherDataRequest weatherDataRequest;
 
     /**
      * Constructor for the WeatherProducer class.
@@ -53,9 +58,10 @@ public class WeatherProducer extends BaseProducer {
      * @param plzNameMapping Mapping for the plz and location. Key = plz and value = locationName.
      * @throws IOException Requesting and sending data can throw an IOException.
      */
-    public void requestAndPublishWeatherData(Map.Entry<Integer, String> plzNameMapping) throws IOException {
-        WeatherDataRequest request = new WeatherDataRequest();
-        WeatherDataDto result = request.execute(plzNameMapping.getKey(), plzNameMapping.getValue());
+    public void requestAndPublishWeatherData(Map.Entry<String, String> plzNameMapping) throws IOException {
+        if (this.weatherDataRequest == null)
+            this.weatherDataRequest = new WeatherDataRequest();
+        WeatherDataDto result = this.weatherDataRequest.execute(plzNameMapping.getKey(), plzNameMapping.getValue());
         if (result != null)
             this.sendMessage(result);
     }

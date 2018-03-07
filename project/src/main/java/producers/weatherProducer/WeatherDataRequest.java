@@ -8,6 +8,7 @@ import producers.Configuration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 /**
  * A request to query weather data.
@@ -21,9 +22,9 @@ public class WeatherDataRequest extends BaseRequest {
      * @param locationName The name of the location.
      * @return Null, if no weather could be received. The weather dto if successful.
      */
-    public WeatherDataDto execute(Integer plz, String locationName) {
+    public WeatherDataDto execute(String plz, String locationName) {
         String adr = Configuration.instance.openWeatherDataURLPattern
-                .replace("{plz}", String.valueOf(plz))
+                .replace("{plz}", plz)
                 .replace("{apikey}", Configuration.instance.openWeatherApiKey);
 
         URL url = null;

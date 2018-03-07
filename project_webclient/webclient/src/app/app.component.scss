@@ -1,0 +1,25 @@
+.card {
+    margin:1em 1em 1em 1em;
+}
+
+.container {
+    margin-top: 2em;
+}
+
+.divider-blue {
+    border-top-color: #6699ff;
+    border-top-style: dotted;
+    border-top-width: medium;
+}
+
+.divider-red {
+    border-top-color: #FF0000;
+    border-top-style: dotted;
+    border-top-width: medium;
+}
+
+p {
+    span {
+        display: block;
+    }
+}
