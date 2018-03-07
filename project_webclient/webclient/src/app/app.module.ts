@@ -5,7 +5,7 @@ import {StompConfig, StompService} from '@stomp/ng2-stompjs';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { stompConfig } from './stompconfig';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppComponent
   ],
   imports: [
-    NgbModule.forRoot(),
+    //NgbModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
     BrowserModule,
     FormsModule
   ],

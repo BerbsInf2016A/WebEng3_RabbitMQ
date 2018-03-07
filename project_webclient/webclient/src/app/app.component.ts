@@ -10,7 +10,7 @@ import { YoutubeData } from './youtube/youtubeData';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 
 /**
@@ -20,7 +20,7 @@ export class AppComponent {
 
   /**
    * The title of the app.
-   */
+   */npm
   title = 'RabiitMQ Example';
   /**
    * The subscribtions for RabbitMQ.
