@@ -13,7 +13,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     AppComponent
   ],
   imports: [
-    //NgbModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     BrowserModule,
     FormsModule

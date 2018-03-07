@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0",
     "@stomp/ng2-stompjs": "^0.6.3",
     "angular-bootstrap-md": "^5.2.2",
     "chart.js": "^2.5.0",
