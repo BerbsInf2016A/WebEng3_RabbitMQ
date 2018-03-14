@@ -6,9 +6,13 @@ import publish_subscribe.Configuration;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Class for the Subscriber.
+ */
 public class Subscriber {
 
     public static void main(String[] argv){
+        // Creating the Connection Factory.
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection;
@@ -26,6 +30,7 @@ public class Subscriber {
 
             System.out.println("Waiting for messages. To exit press CTRL+C");
 
+            // Creating the Consumer.
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope,

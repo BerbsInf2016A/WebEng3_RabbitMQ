@@ -9,9 +9,13 @@ import publish_subscribe.Configuration;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Class for the Publisher.
+ */
 public class Publisher {
 
     public static void main(String[] argv) {
+        // Creating the Connection Factory.
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection;
@@ -40,6 +44,11 @@ public class Publisher {
         }
     }
 
+    /**
+     * Gets the Message in a Format to be published.
+     * @param strings The Message.
+     * @return The Message to publish.
+     */
     private static String getMessage(String[] strings){
         if (strings.length < 1)
             return "info: Hello World!";
