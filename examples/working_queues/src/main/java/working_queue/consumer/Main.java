@@ -14,11 +14,6 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-    /**
-     * static variable to give each consumer an own id
-     */
-    private static int nextConsumer = 0;
-
     public static void main(String[] args) {
         try {
             // Open connection and channel.
@@ -62,9 +57,7 @@ public class Main {
             boolean noAck = false;
             // The built consumer (param4) is started on the opened channel and a specified queue (param1).
             // Acknowledgement is enabled (param2).
-            // The consumer is named MyConsumer[count] (param3), which can be inspected on the web-monitoring-tool.
-            channel.basicConsume(Configuration.instance.queueName, noAck, "MyConsumer"+nextConsumer, consumer);
-            nextConsumer++;
+            channel.basicConsume(Configuration.instance.queueName, noAck, "MyConsumer", consumer);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
