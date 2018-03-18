@@ -13,8 +13,13 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-
+    /**
+     * The connection which is used by the RabbitMQ client.
+     */
     private static Connection connection;
+    /**
+     * The channel which is used to send the data.
+     */
     private static Channel channel;
 
     public static void main(String[] args) {
@@ -57,6 +62,11 @@ public class Main {
 
     }
 
+    /**
+     * Ask the user if he wants to send another message.
+     *
+     * @return True if another message should be send, false if not.
+     */
     private static boolean askUserToSendAnotherMessage() {
         System.out.println("Do you want to produce a message? y or yes to produce a message, n or no to exit.");
         Scanner input = new Scanner(System.in);
@@ -71,6 +81,12 @@ public class Main {
         return false;
     }
 
+    /**
+     * Produces a message.
+     *
+     * @param channel The channel to send the produced message.
+     * @throws IOException Can be thrown by the RabbitMQ client.
+     */
     private static void produceMessage(Channel channel) throws IOException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date now = new Date();
@@ -81,9 +97,16 @@ public class Main {
         System.out.println("Sent '" + message + "'");
     }
 
+    /**
+     * Prepare the channel.
+     *
+     * @return The channel created channel.
+     * @throws IOException Can be thrown by the RabbitMQ client.
+     * @throws TimeoutException Can be thrown by the RabbitMQ client.
+     */
     private static Channel prepareChannel() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(Configuration.rabbitMQServerHost);
         connection = factory.newConnection();
         channel = connection.createChannel();
         channel.queueDeclare(Configuration.instance.queueName, false, false, false, null);

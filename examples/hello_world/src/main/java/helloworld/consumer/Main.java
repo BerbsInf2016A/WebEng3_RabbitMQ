@@ -17,12 +17,7 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-
-    private static Connection connection;
-    private static Channel channel;
-
     public static void main(String[] args) {
-	    boolean abort = false;
         Channel channel = null;
         try {
             System.out.println("Trying to create connection and channel.");
@@ -45,11 +40,16 @@ public class Main {
         }
     }
 
-
-
+    /**
+     * Prepare the channel.
+     *
+     * @return The channel created channel.
+     * @throws IOException Can be thrown by the RabbitMQ client.
+     * @throws TimeoutException Can be thrown by the RabbitMQ client.
+     */
     private static Channel prepareChannel() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(Configuration.rabbitMQServerHost);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
