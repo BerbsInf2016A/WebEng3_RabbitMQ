@@ -14,7 +14,6 @@ import java.util.concurrent.TimeoutException;
 
 public class Main {
 
-
     /**
      * static variable to give each consumer an own id
      */
